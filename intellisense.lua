@@ -597,6 +597,30 @@ function onOilSpill(tile_x, tile_z, delta, total, vehicle_id) end
 ---| 53 # tubeshoulders_fish
 ---| 54 # viperfish
 ---| 55 # yellowfin_tuna
+---| 56 # blue_crab
+---| 57 # brown_box_crab
+---| 58 # coconut_crab
+---| 59 # dungeness_crab
+---| 60 # furry_lobster
+---| 61 # homarus_americanus -- Atlantic Lobster
+---| 62 # homarus_gammarus -- Common Lobster
+---| 63 # horseshoe_crab
+---| 64 # jasus_edwardsii -- Red Rock Lobster
+---| 65 # jasus_lalandii -- Cape Rock Lobster
+---| 66 # jonah_crab
+---| 67 # king_crab
+---| 68 # mud_crab
+---| 69 # munida_lobster
+---| 70 # ornate_rock_lobster
+---| 71 # panulirus_interruptus
+---| 72 # red_king_crab
+---| 73 # reef_lobster
+---| 74 # slipper_lobster
+---| 75 # snow_crab
+---| 76 # southern_rock_lobster
+---| 77 # spider_crab
+---| 78 # spiny_lobster
+---| 79 # stone_crab
 
 ---@alias SWGameSettingEnum
 ---| "photo_mode"
@@ -793,7 +817,7 @@ function server.getLocationComponentData(addon_index, location_index, component_
 ---@param matrix SWMatrix The matrix the mission object should be spawned at
 ---@param addon_index number The index of the addon as it is found in the missions folder. There is no set order and it may not be the same next execution.
 ---@param location_index number The unique index of the location that the component is in
----@param component_index number The index of the component that can be read from the COMPONENT_DATA table using server.getLocationComponentData()
+---@param component_index number The index of the component
 ---@param parent_vehicle_id number? optional id of the vehicle to parent the fire or zone component to,
 ---@return SWAddonComponentSpawned component, boolean is_success
 function server.spawnAddonComponent(matrix, addon_index, location_index, component_index, parent_vehicle_id) end
@@ -935,7 +959,7 @@ function server.addMapLabel(peer_id, ui_id, LABEL_TYPE, name, x, z) end
 ---@param ui_id integer The ui id to use
 function server.removeMapLabel(peer_id, ui_id) end
 
--- Adds a map line between two world space matrices with the specified ui_id for the specified pee(s). Custom colour defaults to red.
+-- Adds a map line between two world space matrices with the specified ui_id for the specified peer(s). Custom colour defaults to red.
 ---@param peer_id number The peer id of the affected player. -1 affects all players
 ---@param ui_id integer The ui id to use
 ---@param start_matrix SWMatrix Line start position. worldspace
@@ -952,7 +976,8 @@ function server.addMapLine(peer_id, ui_id, start_matrix, end_matrix, width, r, g
 ---@param ui_id integer The ui id to use
 function server.removeMapLine(peer_id, ui_id) end
 
--- Displays a tooltip-like popup either in the world. If the popup does not exist, it will be created.
+-- Displays a tooltip-like popup in the world.<br>
+-- If a popup with the same `ui_id` does not exist, it will be created, otherwise the existing one will be modified.
 ---@param peer_id number The peer id of the affected player. -1 affects all players
 ---@param ui_id integer A unique ui_id to be used with this popup. You cannot re-use ui ids for popups, unless they have the same text and position, then they can be used for multiple players.
 ---@param name string ? Appears to do nothing. Can be left as an empty string: ""
@@ -966,7 +991,8 @@ function server.removeMapLine(peer_id, ui_id) end
 ---@param object_parent_id number? (optional) The object to attach the popup to
 function server.setPopup(peer_id, ui_id, name, is_show, text, x, y, z, render_distance, vehicle_parent_id, object_parent_id) end
 
--- Creates a popup that appears on the player's screen, regardless of their look direction and location in the world.
+-- Creates a popup that appears on the player's screen, regardless of their look direction and location in the world.<br>
+-- If a popup with the same `ui_id` does not exist, it will be created, otherwise the existing one will be modified.
 ---@param peer_id number The peer id of the affected player. -1 affects all players
 ---@param ui_id integer A unique ui_id to be used with this popup. You cannot re-use ui ids for popups. One ui id per popup.
 ---@param name string ?
@@ -1183,7 +1209,7 @@ function server.setCharacterItem(object_id, slot, equipment_id, is_active, integ
 -- Returns the id of the equipment that the character has in the provided slot
 ---@param object_id number The unique id of the character to check
 ---@param slot_number SWSlotNumberEnum number
----@return number SWEquipmentTypeEnum, boolean is_success
+---@return SWEquipmentTypeEnum equipment_id, boolean is_success
 function server.getCharacterItem(object_id, slot_number) end
 
 ---@alias SWOutfitTypeEnum
